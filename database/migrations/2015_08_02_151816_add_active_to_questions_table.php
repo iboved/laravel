@@ -13,7 +13,7 @@ class AddActiveToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->string('active')->default('true');
+            $table->integer('active')->default(1);
         });
     }
 
