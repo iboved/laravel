@@ -53,7 +53,8 @@ return array(
 	 */
 	'menu' => array(
 		'Questions' => array('Questions' => 'questions'),
-		'Answers' => array('Answers' => 'answers')
+		'Answers' => array('Answers' => 'answers'),
+		'Users' => array('Users' => 'users')
 	),
 
 	/**
