@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Question',
+    'title' => 'Questions',
 
     'single' => 'question',
 
@@ -38,21 +38,21 @@ return [
      */
     'edit_fields' => [
         'title' => [
-            'title' => 'Назва',
+            'title' => 'Title',
             'type' => 'text'
         ],
         'description' => [
-            'title' => 'Короткий опис',
+            'title' => 'Description',
             'type' => 'textarea'
         ],
         'user' => [
-            "title" => 'Автор',
+            "title" => 'Author',
             "type" => 'relationship',
             "name_field" => 'name'
         ],
         'active'  => [
-            'type' => 'bool',
             'title' => 'Active',
+            'type' => 'bool',
         ],
     ],
 
