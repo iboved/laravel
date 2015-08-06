@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'title' => 'Питання',
+    'title' => 'Question',
 
-    'single' => 'Питання',
+    'single' => 'question',
 
     'model' => 'App\Question',
 
@@ -15,23 +15,20 @@ return [
             'title' => '#'
         ],
         'title' => [
-            'title' => 'Назва',
+            'title' => 'Title',
         ],
         'description' => [
-            'title' => 'Опис',
+            'title' => 'Description',
         ],
         'user_id' => [
-            "title" => "Автор",
-            "output" => function($id){
-                $user = \App\User::find($id);
-
-                return $user->name;
-            }
+            'title' => 'Author',
+            'relationship' => 'user',
+            'select' => '(:table).name',
         ],
         'active'  => [
-            'title' => 'Активне?',
+            'title' => 'Active',
             'output' => function ($value) {
-                return ($value)?"Так":"Ні";
+                return ($value) ? 'Yes' : 'No';
             }
         ],
     ],
@@ -46,6 +43,7 @@ return [
         ],
         'description' => [
             'title' => 'Короткий опис',
+            'type' => 'textarea'
         ],
         'user' => [
             "title" => 'Автор',
@@ -53,8 +51,24 @@ return [
             "name_field" => 'name'
         ],
         'active'  => [
-            'type' => 'integer',
-            'title' => 'Активный?',
+            'type' => 'bool',
+            'title' => 'Active',
+        ],
+    ],
+
+    /**
+     * The filter fields
+     *
+     * @type array
+     */
+    'filters' => [
+        'id',
+        'title' => [
+            'title' => 'Title',
+        ],
+        'user' => [
+            'title' => 'Author',
+            'type' => 'relationship',
         ],
     ],
 ];
