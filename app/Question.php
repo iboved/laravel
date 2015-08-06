@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\SluggableInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Question extends Model
+class Question extends Model implements SluggableInterface
 {
-    use SoftDeletes;
+    use SoftDeletes, SluggableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +24,11 @@ class Question extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    protected $sluggable = [
+        'build_from' => 'title',
+        'save_to'    => 'slug',
+    ];
 
     /**
      * Get the answers for the question.
