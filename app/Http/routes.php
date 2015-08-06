@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'QuestionController@index');
+Route::get('questions/{slug}', 'QuestionController@showQuestion');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

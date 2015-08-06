@@ -22,4 +22,17 @@ class QuestionController extends Controller
 
         return view('question.index', ['questions' => $questions]);
     }
+
+    /**
+     * Show one question by slug.
+     *
+     * @param $slug
+     * @return \Illuminate\View\View
+     */
+    public function showQuestion($slug)
+    {
+        $question = Question::findBySlugOrFail($slug);
+
+        return view('question.show', ['question' => $question]);
+    }
 }
