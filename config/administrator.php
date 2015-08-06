@@ -52,7 +52,8 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
-		'Питання' => array('Questions' => 'questions')
+		'Questions' => array('Questions' => 'questions'),
+		'Answers' => array('Answers' => 'answers')
 	),
 
 	/**
