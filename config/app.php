@@ -144,6 +144,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Frozennode\Administrator\AdministratorServiceProvider::class,
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
     ],
 
