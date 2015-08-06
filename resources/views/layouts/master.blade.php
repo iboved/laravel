@@ -23,6 +23,15 @@
                         <ul class="nav navbar-nav">
                             <li><a href="{{ action('QuestionController@index') }}">Home</a></li>
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (Auth::check())
+                                <li><a href="#">Hi, {{ Auth::user()->name }}!</a></li>
+                                <li><a href="{{ action('Auth\AuthController@getLogout') }}">Log out</a></li>
+                            @else
+                                <li><a href="{{ action('Auth\AuthController@getRegister') }}">Sign up</a></li>
+                                <li><a href="{{ action('Auth\AuthController@getLogin') }}">Sign in</a></li>
+                            @endif
+                        </ul>
                     </div><!-- /.nav-collapse -->
                 </div><!-- /.container -->
             </nav><!-- /.navbar -->
