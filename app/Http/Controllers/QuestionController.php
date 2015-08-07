@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -58,14 +59,12 @@ class QuestionController extends Controller
             'description' => 'required',
         ]);
 
-        echo $request->title;
-        exit();
+        $question = new Question();
+        $question->title = $request->title;
+        $question->description = $request->description;
+        $question->user_id = Auth::user()->id;
+        $question->save();
 
-//        $question = new Question();
-//        $question->title = $request->title;
-//        $question->description = $request->description;
-//        $question->save();
-
-        return action('QuestionController@show', ['slug' => $question->slug]);
+        return redirect(action('QuestionController@show', ['slug' => $question->slug]));
     }
 }
