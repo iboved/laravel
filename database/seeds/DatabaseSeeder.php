@@ -14,33 +14,18 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(QuestionTableSeeder::class);
+        $this->call(AnswerTableSeeder::class);
 
         Model::reguard();
+/*
+        factory('App\User', 10)->create()->each(function($u) {
+            $question = factory('App\Question')->make();
 
-        \App\User::create([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
-        ]);
+            $u->questions()->save($question);
 
-        \App\User::create([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
-        ]);
-
-        \App\Question::create([
-            'title' => str_random(10),
-            'description' => str_random(10),
-            'active' => 1,
-            'user_id' => 1,
-        ]);
-
-        \App\Answer::create([
-            'description' => str_random(10),
-            'user_id' => 2,
-            'question_id' => 1,
-        ]);
+            factory('App\Answer')->make(['user_id' => $u->id, 'question_id' => $question->id])->create();
+        });*/
     }
 }
