@@ -29,10 +29,43 @@ class QuestionController extends Controller
      * @param $slug
      * @return \Illuminate\View\View
      */
-    public function showQuestion($slug)
+    public function show($slug)
     {
         $question = Question::findBySlugOrFail($slug);
 
         return view('question.show', ['question' => $question]);
+    }
+
+    /**
+     * Create new question.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('question.create');
+    }
+
+    /**
+     * Store question.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|max:150',
+            'description' => 'required',
+        ]);
+
+        echo $request->title;
+        exit();
+
+//        $question = new Question();
+//        $question->title = $request->title;
+//        $question->description = $request->description;
+//        $question->save();
+
+        return action('QuestionController@show', ['slug' => $question->slug]);
     }
 }

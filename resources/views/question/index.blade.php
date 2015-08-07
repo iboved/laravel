@@ -23,12 +23,12 @@
         <div class="row">
             @foreach ($questions as $question)
             <div class="col-xs-12 col-lg-12">
-                <p class="text-primary" style="font-size: 27px"><a href="{{ action('QuestionController@showQuestion', ['slug' => $question->slug]) }}">{{ $question->title }}</a></p>
+                <p class="text-primary" style="font-size: 27px"><a href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}">{{ $question->title }}</a></p>
                 <p>Description: {{ $question->description }}</p>
                 <p>Author: {{ $question->user->name }}</p>
                 <p>Created at: {{ $question->created_at }}</p>
                 <p>Updated at: {{ $question->updated_at }}</p>
-                <p><a class="btn btn-primary" href="{{ action('QuestionController@showQuestion', ['slug' => $question->slug]) }}" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-primary" href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}" role="button">View details &raquo;</a></p>
             </div><!--/.col-xs-12.col-lg-12-->
             @endforeach
         </div><!--/row-->
