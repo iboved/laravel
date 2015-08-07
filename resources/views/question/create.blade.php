@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-
+    <h1 class="text-center login-title">Create question</h1>
     {!! Form::open(array('action' => 'QuestionController@store')) !!}
     <p>
         {!! Form::label('title', 'Title', ['class' => 'form-label']) !!}
