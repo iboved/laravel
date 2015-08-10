@@ -44,7 +44,11 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('question.create');
+        if (Auth::check()) {
+            return view('question.create');
+        } else {
+            return response()->view('errors.401', [], 401);
+        }
     }
 
     /**
@@ -54,17 +58,21 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:150',
-            'description' => 'required',
-        ]);
+        if (Auth::check()) {
+            $this->validate($request, [
+                'title' => 'required|max:150',
+                'description' => 'required',
+            ]);
 
-        $question = new Question();
-        $question->title = $request->title;
-        $question->description = $request->description;
-        $question->user_id = Auth::user()->id;
-        $question->save();
+            $question = new Question();
+            $question->title = $request->title;
+            $question->description = $request->description;
+            $question->user_id = Auth::user()->id;
+            $question->save();
 
-        return redirect(action('QuestionController@show', ['slug' => $question->slug]));
+            return redirect(action('QuestionController@show', ['slug' => $question->slug]));
+        } else {
+            return response()->view('errors.401', [], 401);
+        }
     }
 }
