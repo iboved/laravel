@@ -8,7 +8,7 @@
             <h2> {{ $question->title }} </h2>
             <p>Description: {{ $question->description }}</p>
             <p>Created at: {{ $question->created_at }}</p>
-            <p>Created at: {{ $question->updated_at }}</p>
+            <p>Updated at: {{ $question->updated_at }}</p>
             <hr>
             <h4>Author</h4>
             Name: {{ $question->user->name }} <br>
