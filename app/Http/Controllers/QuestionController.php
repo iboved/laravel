@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('author', ['only' => ['edit', 'update']]);
+    }
+
     /**
      * Show a list of all questions.
      *
@@ -30,7 +36,7 @@ class QuestionController extends Controller
      * @param $slug
      * @return \Illuminate\View\View
      */
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $question = Question::findBySlugOrFail($slug);
 
@@ -44,11 +50,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        if (Auth::check()) {
-            return view('question.create');
-        } else {
-            return response()->view('errors.401', [], 401);
-        }
+        return view('question.create');
     }
 
     /**
@@ -58,21 +60,51 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::check()) {
-            $this->validate($request, [
-                'title' => 'required|max:150',
-                'description' => 'required',
-            ]);
+        $this->validate($request, [
+            'title' => 'required|max:150',
+            'description' => 'required',
+        ]);
 
-            $question = new Question();
-            $question->title = $request->title;
-            $question->description = $request->description;
-            $question->user_id = Auth::user()->id;
-            $question->save();
+        $question = new Question([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id
+        ]);
+        $question->save();
 
-            return redirect(action('QuestionController@show', ['slug' => $question->slug]));
-        } else {
-            return response()->view('errors.401', [], 401);
-        }
+        return redirect(action('QuestionController@show', ['slug' => $question->slug]));
+    }
+
+    /**
+     * Edit question.
+     *
+     * @param $slug
+     * @return \Illuminate\View\View
+     */
+    public function edit($slug)
+    {
+        $question = Question::findBySlugOrFail($slug);
+
+        return view('question.edit', ['question' => $question]);
+    }
+
+    /**
+     * Update question.
+     *
+     * @param Request $request
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, $slug)
+    {
+        $question = Question::findBySlugOrFail($slug);
+
+        $question->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'active' => $request->active
+        ]);
+
+        return redirect(action('QuestionController@show', ['slug' => $question->slug]));
     }
 }
