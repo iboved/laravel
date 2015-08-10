@@ -17,6 +17,7 @@ Route::get('questions/{slug}', 'QuestionController@show');
 Route::get('questions/{slug}/edit', 'QuestionController@edit');
 Route::post('questions', 'QuestionController@store');
 Route::put('questions/{slug}', 'QuestionController@update');
+Route::delete('questions/{slug}', 'QuestionController@delete');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
