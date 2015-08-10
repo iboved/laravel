@@ -22,6 +22,9 @@
                     <div id="navbar" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="{{ action('QuestionController@index') }}">Home</a></li>
+                            @if (Auth::check())
+                                <li><a href="{{ action('QuestionController@create') }}">Add question</a></li>
+                            @endif
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             @if (Auth::check())
