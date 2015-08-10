@@ -12,7 +12,7 @@ class QuestionController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update']]);
-        $this->middleware('author', ['only' => ['edit', 'update']]);
+        $this->middleware('author', ['only' => ['edit', 'update', 'delete']]);
     }
 
     /**
@@ -36,7 +36,7 @@ class QuestionController extends Controller
      * @param $slug
      * @return \Illuminate\View\View
      */
-    public function show(Request $request, $slug)
+    public function show($slug)
     {
         $question = Question::findBySlugOrFail($slug);
 
@@ -99,12 +99,33 @@ class QuestionController extends Controller
     {
         $question = Question::findBySlugOrFail($slug);
 
+        $this->validate($request, [
+            'title' => 'required|max:150',
+            'description' => 'required',
+        ]);
+
         $question->update([
             'title' => $request->title,
             'description' => $request->description,
             'active' => $request->active
         ]);
 
-        return redirect(action('QuestionController@show', ['slug' => $question->slug]));
+        return redirect(action('QuestionController@show', ['slug' => $question->slug]))
+            ->with('status', 'Question updated!');
+    }
+
+    /**
+     * Delete question.
+     *
+     * @param $slug
+     * @return \Illuminate\View\View
+     */
+    public function delete($slug)
+    {
+        $question = Question::findBySlugOrFail($slug);
+        $question->delete();
+
+        return redirect(action('QuestionController@index'))
+            ->with('status', 'Question deleted!');
     }
 }
