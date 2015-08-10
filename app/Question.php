@@ -45,4 +45,15 @@ class Question extends Model implements SluggableInterface
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Cascade delete
+     */
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function ($question) {
+            $question->answers()->delete();
+        });
+    }
 }
