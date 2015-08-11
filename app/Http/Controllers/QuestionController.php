@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +12,7 @@ class QuestionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update', 'delete']]);
         $this->middleware('author', ['only' => ['edit', 'update', 'delete']]);
     }
 
@@ -39,8 +40,14 @@ class QuestionController extends Controller
     public function show($slug)
     {
         $question = Question::findBySlugOrFail($slug);
+        $answers = Answer::where('question_id', $question->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('question.show', ['question' => $question]);
+        return view('question.show', [
+        'question' => $question,
+        'answers' => $answers
+    ]);
     }
 
     /**
