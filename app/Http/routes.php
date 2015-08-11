@@ -20,6 +20,7 @@ Route::put('questions/{slug}', 'QuestionController@update');
 Route::delete('questions/{slug}', 'QuestionController@delete');
 Route::post('questions/{slug}/answer', 'AnswerController@store');
 Route::delete('questions/{slug}/answer/{id}', 'AnswerController@delete');
+Route::post('questions/{slug}/like', 'QuestionController@like');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

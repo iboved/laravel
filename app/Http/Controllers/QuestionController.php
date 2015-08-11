@@ -12,7 +12,7 @@ class QuestionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update', 'delete']]);
+        $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update', 'delete', 'like']]);
         $this->middleware('author', ['only' => ['edit', 'update', 'delete']]);
     }
 
@@ -134,5 +134,23 @@ class QuestionController extends Controller
 
         return redirect(action('QuestionController@index'))
             ->with('status', 'Question deleted!');
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function like($slug)
+    {
+        $count = Auth::user()->likes()->where('slug', $slug)->count();
+        $question = Question::findBySlugOrFail($slug);
+
+        if ($count) {
+            Auth::user()->likes()->detach($question);
+        } else {
+            Auth::user()->likes()->attach($question);
+        }
+
+        return redirect(action('QuestionController@show', ['slug' => $slug]));
     }
 }
