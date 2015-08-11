@@ -47,6 +47,14 @@ class Question extends Model implements SluggableInterface
     }
 
     /**
+     * Get the question's likes users.
+     */
+    public function likes()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /**
      * Cascade delete
      */
     protected static function boot() {
