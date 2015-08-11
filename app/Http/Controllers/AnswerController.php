@@ -24,21 +24,25 @@ class AnswerController extends Controller
      */
     public function store(Request $request, $slug)
     {
-        $this->validate($request, [
-            'description' => 'required',
-        ]);
-
         $question = Question::findBySlugOrFail($slug);
 
-        $answer = new Answer([
-            'description' => $request->description,
-            'user_id' => Auth::user()->id,
-            'question_id' => $question->id
-        ]);
-        $answer->save();
+        if ($question->active) {
+            $this->validate($request, [
+                'description' => 'required',
+            ]);
 
-        return redirect(action('QuestionController@show', ['slug' => $question->slug]))
-            ->with('status', 'Answer added!');
+            $answer = new Answer([
+                'description' => $request->description,
+                'user_id' => Auth::user()->id,
+                'question_id' => $question->id
+            ]);
+            $answer->save();
+
+            return redirect(action('QuestionController@show', ['slug' => $question->slug]))
+                ->with('status', 'Answer added!');
+        } else {
+            return response()->view('errors.403', [], 403);
+        }
     }
 
     /**
