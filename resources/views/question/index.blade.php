@@ -28,6 +28,9 @@
         <div class="row">
             @foreach ($questions as $question)
             <div class="col-xs-12 col-lg-12">
+                @if (!$question->active)
+                    <div class="pull-right text-danger" style="font-size: 14px">Closed</div>
+                @endif
                 <p class="text-primary" style="font-size: 27px"><a href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}">{{ $question->title }}</a></p>
                 <p>Description: {{ $question->description }}</p>
                 <p>Author: {{ $question->user->name }}</p>

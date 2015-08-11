@@ -26,8 +26,13 @@
             @endif
         </div>
     </div>
-    @if (Auth::check())
-        @include('answer.create')
+    @if ($question->active)
+        @if (Auth::check())
+            @include('answer.create')
+        @endif
+    @else
+        <h1 class="text-center login-title">Question closed!</h1>
     @endif
     @include('answer.show')
 @endsection
+
