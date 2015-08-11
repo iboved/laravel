@@ -31,6 +31,7 @@
                 <p class="text-primary" style="font-size: 27px"><a href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}">{{ $question->title }}</a></p>
                 <p>Description: {{ $question->description }}</p>
                 <p>Author: {{ $question->user->name }}</p>
+                <p>Answers: {{ $question->answers->count() }}</p>
                 <p>Created at: {{ $question->created_at }}</p>
                 <p>Updated at: {{ $question->updated_at }}</p>
                 <p><a class="btn btn-primary" href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}" role="button">View details &raquo;</a></p>
