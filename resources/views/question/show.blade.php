@@ -26,4 +26,8 @@
             @endif
         </div>
     </div>
+    @if (Auth::check())
+        @include('answer.create')
+    @endif
+    @include('answer.show')
 @endsection
