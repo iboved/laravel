@@ -39,4 +39,6 @@
             @endforeach
         </div><!--/row-->
     </div><!--/.col-xs-12.col-sm-9-->
+
+    {!! $questions->render() !!}
 @endsection
