@@ -1,6 +1,6 @@
 @foreach ($answers as $answer)
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" id="view_comment">
             <h5>Author</h5>
             Name: {{ $answer->user->name }} | Email: <a href="mailto:#"> {{ $answer->user->email }} </a>
             <br>

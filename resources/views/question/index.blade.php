@@ -25,6 +25,8 @@
             <h2>Questions and Answers site</h2>
             <p>Short description of site</p>
         </div>
+        <a href="{{ action('QuestionController@index') }}?order=created_at">By date</a>
+        <a href="{{ action('QuestionController@index') }}?order=likes">By rating</a>
         <div class="row">
             @foreach ($questions as $question)
             <div class="col-xs-12 col-lg-12">
@@ -33,7 +35,7 @@
                 @endif
                 <p class="text-primary" style="font-size: 27px"><a href="{{ action('QuestionController@show', ['slug' => $question->slug]) }}">{{ $question->title }}</a></p>
                 <p>Description: {{ $question->description }}</p>
-                <p>Author: {{ $question->user->name }}</p>
+                {{--<p>Author: {{ $question->user->name }}</p>--}}
                 <p>Answers: {{ $question->answers->count() }}</p>
                 <p>Likes: {{ $question->likes->count() }}</p>
                 <p>Created at: {{ $question->created_at }}</p>

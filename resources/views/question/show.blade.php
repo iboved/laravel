@@ -17,15 +17,7 @@
             <p>Likes: {{ $question->likes->count() }}</p>
 
             @if (Auth::check())
-                @if (Auth::user()->likes()->where('slug', $question->slug)->count())
-                    {!! Form::open(array('action' => ['QuestionController@like', 'slug' => $question->slug])) !!}
-                    <p>{!! Form::submit('Dislike', ['class' => 'btn btn-danger']) !!}</p>
-                    {!! Form::close() !!}
-                @else
-                    {!! Form::open(array('action' => ['QuestionController@like', 'slug' => $question->slug])) !!}
-                    <p>{!! Form::submit('Like', ['class' => 'btn btn-primary']) !!}</p>
-                    {!! Form::close() !!}
-                @endif
+                <button id="like" type="button" class="btn btn-primary">Default</button>
             @endif
 
             <br>
