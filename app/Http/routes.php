@@ -18,8 +18,8 @@ Route::get('questions/{slug}/edit', 'QuestionController@edit');
 Route::post('questions', 'QuestionController@store');
 Route::put('questions/{slug}', 'QuestionController@update');
 Route::delete('questions/{slug}', 'QuestionController@delete');
-Route::post('questions/{slug}/answer', 'AnswerController@store');
-Route::delete('questions/{slug}/answer/{id}', 'AnswerController@delete');
+Route::post('questions/{slug}/answers', 'AnswerController@store');
+Route::delete('questions/{slug}/answers/{id}', 'AnswerController@delete');
 Route::post('questions/{slug}/like', 'QuestionController@like');
 
 // Authentication routes...
@@ -34,4 +34,7 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // API Routes
 Route::group(['prefix' => 'api'], function () {
     Route::resource('questions', 'api\QuestionController');
+    Route::get('questions/{slug}/answers', 'api\QuestionController@getAnswers');
+    Route::post('questions/{slug}/answers', 'api\QuestionController@storeAnswer');
+    Route::delete('questions/{slug}/answers/{id}', 'api\QuestionController@deleteAnswer');
 });
