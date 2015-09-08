@@ -12,7 +12,7 @@ class AnswerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'delete']]);
+        $this->middleware('auth', ['only' => ['store', 'delete']]);
     }
 
     /**
