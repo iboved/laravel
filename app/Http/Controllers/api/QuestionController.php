@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Question;
 use App\Http\Requests;
@@ -30,20 +31,24 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'title' => 'required|max:150',
             'description' => 'required',
         ]);
 
-        $question = new Question([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => Auth::user()->id
-        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        } else {
+            $question = new Question([
+                'title' => $request->title,
+                'description' => $request->description,
+                'user_id' => Auth::user()->id
+            ]);
 
-        $question->save();
+            $question->save();
 
-        return response()->json($question, 201);
+            return response()->json($question, 201);
+        }
     }
 
     /**
