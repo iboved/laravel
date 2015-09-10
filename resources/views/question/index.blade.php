@@ -25,8 +25,6 @@
             <h2>Questions and Answers site</h2>
             <p>Short description of site</p>
         </div>
-        <a href="{{ action('QuestionController@index') }}?order=created_at">By date</a>
-        <a href="{{ action('QuestionController@index') }}?order=likes">By rating</a>
         <div class="row">
             @foreach ($questions as $question)
             <div class="col-xs-12 col-lg-12">

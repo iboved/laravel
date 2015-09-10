@@ -17,7 +17,7 @@
 
         {{--<p>{!! Form::submit('Submit!', ['class' => 'btn btn-lg btn-primary btn-block']) !!}</p>--}}
         {{--{!! Form::close() !!}--}}
-        <form id="testform" action="{{ action('AnswerController@store', ['slug' => $question->slug]) }}">
+        <form id="addAnswerForm" action="{{ action('AnswerController@store', ['slug' => $question->slug]) }}">
             <textarea class="form-control" name="description" rows="3"></textarea>
             <button type="submit" class="btn btn-default">Send</button>
         </form>
