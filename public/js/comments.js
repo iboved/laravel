@@ -16,9 +16,20 @@ $(document).ready(function() {
                     $('<div />')
                         .addClass('panel-body')
                         .append('<h5>Author</h5>')
-                        .append('Name: ' + data.user.name + '| Email: <a href="mailto:#">' + data.user.email + '</a> <br>')
+                        .append('Name: ' + data.user.name + ' | Email: <a href="mailto:#">' + data.user.email + '</a> <br>')
                         .append('Answer: ' + data.description)
                         .append('<p>Created at: ' + data.created_at + '</p>')
+                        .append(
+                        $('<div />')
+                            .attr('align', 'right')
+                            .append(
+                            $('<a />')
+                                .addClass('delete-answer')
+                                .on('click', deleteComment)
+                                .attr('href', '/questions/' + data.question.slug + '/answer/' + data.id)
+                                .text('Delete')
+                            )
+                        )
                     );
 
                 $('#answer-list').prepend(html);
@@ -28,7 +39,9 @@ $(document).ready(function() {
         });
     });
 
-    $('.delete-answer').on('click', function (e) {
+    $('.delete-answer').on('click', deleteComment);
+
+    function deleteComment(e) {
         e.preventDefault();
 
         var self = $(this);
@@ -36,10 +49,9 @@ $(document).ready(function() {
         $.ajax({
             type: "DELETE",
             url: $(this).attr('href'),
-            success: function () {
-
-                self.closest('.panel', '.panel-default').fadeOut();
+            success: function() {
+                self.closest('.panel.panel-default').fadeOut();
             }
         });
-    });
+    }
 });
