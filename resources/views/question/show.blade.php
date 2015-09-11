@@ -14,10 +14,14 @@
             <p>Description: {{ $question->description }}</p>
             <p>Created at: {{ $question->created_at }}</p>
             <p>Updated at: {{ $question->updated_at }}</p>
-            <p>Likes: {{ $question->likes->count() }}</p>
+            <p id="likes-count">Likes: {{ $question->likes->count() }}</p>
 
             @if (Auth::check())
-                <button id="like" type="button" class="btn btn-primary">Default</button>
+                @if (Auth::user()->likes()->where('slug', $question->slug)->count())
+                    <a href="{{ action('QuestionController@like', ['slug' => $question->slug])}}" id="like" class="btn btn-danger" role="button">Dislike</a>
+                @else
+                    <a href="{{ action('QuestionController@like', ['slug' => $question->slug])}}" id="like" class="btn btn-primary" role="button">Like</a>
+                @endif
             @endif
 
             <br>

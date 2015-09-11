@@ -31,17 +31,15 @@ class AnswerController extends Controller
                 'description' => 'required',
             ]);
 
-            $answer = new Answer([
+            $answer = Answer::create([
                 'description' => $request->description,
                 'user_id' => Auth::user()->id,
                 'question_id' => $question->id
             ]);
-            $answer->save();
 
-            return redirect(action('QuestionController@show', ['slug' => $question->slug]))
-                ->with('status', 'Answer added!');
+            return response()->json($answer->with('user', 'question')->find($answer->id));
         } else {
-            return response()->view('errors.403', [], 403);
+            return response()->json('Forbidden', 403);
         }
     }
 
@@ -58,10 +56,9 @@ class AnswerController extends Controller
         if (Auth::user() == $answer->user) {
             $answer->delete();
 
-            return redirect(action('QuestionController@show', ['slug' => $slug]))
-                ->with('status', 'Answer deleted!');
+            return response()->json('success', 200);
         } else {
-            return response()->view('errors.403', [], 403);
+            return response()->json('Forbidden', 403);
         }
     }
 }

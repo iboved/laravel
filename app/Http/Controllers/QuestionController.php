@@ -72,7 +72,7 @@ class QuestionController extends Controller
             'description' => 'required',
         ]);
 
-        $question = new Question([
+        $question = Question::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => Auth::user()->id
@@ -142,7 +142,7 @@ class QuestionController extends Controller
      */
     public function like($slug)
     {
-        $count = Auth::user()->likes()->where('slug', $slug)->count();
+        $count = Auth::user()->likes->where('slug', $slug)->count();
         $question = Question::findBySlugOrFail($slug);
 
         if ($count) {
@@ -151,6 +151,6 @@ class QuestionController extends Controller
             Auth::user()->likes()->attach($question);
         }
 
-        return redirect(action('QuestionController@show', ['slug' => $slug]));
+        return response()->json($question->likes->count(), 200);
     }
 }

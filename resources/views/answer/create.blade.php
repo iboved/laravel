@@ -21,5 +21,6 @@
             <textarea class="form-control" name="description" rows="3"></textarea>
             <button type="submit" class="btn btn-default">Send</button>
         </form>
+        <br>
     </div>
 </div>
