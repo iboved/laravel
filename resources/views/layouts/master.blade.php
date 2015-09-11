@@ -57,6 +57,7 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
             <script src="{{ asset('js/likes.js') }}"></script>
             <script src="{{ asset('js/comments.js') }}"></script>
+            <script src="{{ asset('js/questions.js') }}"></script>
         @show
     </body>
 </html>
