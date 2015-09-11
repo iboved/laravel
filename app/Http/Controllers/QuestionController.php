@@ -132,8 +132,7 @@ class QuestionController extends Controller
         $question = Question::findBySlugOrFail($slug);
         $question->delete();
 
-        return redirect(action('QuestionController@index'))
-            ->with('status', 'Question deleted!');
+        return response()->json('Success', 200);
     }
 
     /**

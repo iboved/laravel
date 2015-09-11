@@ -56,7 +56,7 @@ class AnswerController extends Controller
         if (Auth::user() == $answer->user) {
             $answer->delete();
 
-            return response()->json('success', 200);
+            return response()->json('Success', 200);
         } else {
             return response()->json('Forbidden', 403);
         }
